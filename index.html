@@ -4,19 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choo Hyun Sung - Portfolio</title>
-    
-    <!-- 1. 글씨체 가져오기 (폰트) -->
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- 2. 꾸미기 도구 가져오기 (Tailwind CSS) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- 3. 리액트 마법 도구 가져오기 -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-    <!-- 스타일 설정 -->
     <style>
         body { font-family: 'Nanum Gothic', sans-serif; }
         .font-syncopate { font-family: 'Syncopate', sans-serif; }
@@ -28,7 +20,7 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // 아이콘 만들기 (그림 그리기)
+        // 아이콘들
         const Menu = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>;
         const X = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 18 12"/></svg>;
         const ArrowUpRight = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>;
@@ -39,9 +31,8 @@
 
             useEffect(() => {
                 const handleScroll = () => {
-                    const sections = ['home', 'about', 'career', 'projects', 'contact'];
+                    const sections = ['home', 'about', 'projects', 'contact'];
                     const scrollPosition = window.scrollY + 100;
-
                     for (const section of sections) {
                         const element = document.getElementById(section);
                         if (element && element.offsetTop <= scrollPosition && (element.offsetTop + element.offsetHeight > scrollPosition)) {
@@ -49,7 +40,6 @@
                         }
                     }
                 };
-
                 window.addEventListener('scroll', handleScroll);
                 return () => window.removeEventListener('scroll', handleScroll);
             }, []);
@@ -58,383 +48,257 @@
                 setIsMenuOpen(false);
                 const element = document.getElementById(sectionId);
                 if (element) {
-                    window.scrollTo({
-                        top: element.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+                    window.scrollTo({ top: element.offsetTop - 80, behavior: 'smooth' });
                 }
             };
 
+            // =========================================================================
+            // 👇 [중요] 여기서 프로젝트 내용을 수정하세요! 👇
+            // image: "./파일이름.jpg" 형태로 적으면 됩니다.
+            // =========================================================================
             const projects = [
                 {
                     title: "모범택시 시즌 2, 3",
                     role: "총괄프로듀서",
                     period: "2022.07 - Present",
                     broadcaster: "SBS",
-                    cast: "이제훈, 김의성, 표예진",
                     desc: "시즌2 최고 시청률 21.0% 기록. 2023년 미니시리즈 1위.\n현재 시즌3 제작 총괄 진행 중.",
                     achievements: [
                         "법적 리스크 사전 관리 및 예방 프로세스 구축",
                         "제작비 150억 규모 예산 통합 관리",
                         "방송사 및 제작사 간 이해관계 조율"
                     ],
-                    image: "https://upload.wikimedia.org/wikipedia/ko/5/52/%EB%AA%A8%EB%B2%94%ED%83%9D%EC%8B%9C_2_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg",
-                    fallbackImage: "https://placehold.co/600x900/111/FFF?text=Taxi+Driver+2"
+                    // 👇 여기를 고치세요 (예: "./taxi2.jpg")
+                    image: "./모범택시3 포스터.jpg"
                 },
                 {
                     title: "아이쇼핑",
                     role: "총괄프로듀서",
                     period: "2023.07 - 2025.08",
                     broadcaster: "ENA, TVING",
-                    cast: "염정아, 원진아, 덱스",
                     desc: "웹툰 원작 액션 스릴러.\n100% 사전제작 및 해외 9개국 선판매 완료.",
                     achievements: [
                         "정부지원금 10억원 유치 성공",
                         "AI 툴(ChatGPT, Midjourney) 활용 제작 효율화",
                         "글로벌 OTT 동시 편성 전략 수립"
                     ],
-                    image: "https://upload.wikimedia.org/wikipedia/ko/thumb/2/23/I_Shopping_Poster.jpg/440px-I_Shopping_Poster.jpg",
-                    fallbackImage: "https://placehold.co/600x900/222/FFF?text=I+Shopping"
+                    // 👇 여기를 고치세요
+                    image: "./아이쇼핑 포스터.jpg"
                 },
                 {
                     title: "오늘도 사랑스럽개",
                     role: "총괄프로듀서",
                     period: "2022.06 - 2024.01",
                     broadcaster: "MBC",
-                    cast: "차은우, 박규영, 이현우",
                     desc: "글로벌 히트 웹툰 원작.\n해외 선판매 및 PPL 수익 극대화.",
                     achievements: [
                         "CG 공정 효율화를 통한 비용 1/10 절감",
                         "제작비 대비 123% 매출 달성",
                         "원작 싱크로율 100% 캐스팅 실현"
                     ],
-                    image: "https://upload.wikimedia.org/wikipedia/ko/8/87/%EC%98%A4%EB%8A%98%EB%8F%84_%EC%82%AC%EB%9E%91%EC%8A%A4%EB%9F%BD%EA%B0%9C_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg",
-                    fallbackImage: "https://placehold.co/600x900/333/FFF?text=A+Good+Day+to+be+a+Dog"
+                    // 👇 여기를 고치세요
+                    image: "./0329_오늘도사랑스럽개_개인 서원.jpg"
                 },
                 {
                     title: "우리는 오늘부터",
                     role: "총괄프로듀서",
                     period: "2021.08 - 2022.06",
                     broadcaster: "SBS",
-                    cast: "임수향, 성훈",
                     desc: "미드 'Jane the Virgin' 한국 리메이크.\n편성 난항 극복 및 흑자 전환 성공.",
                     achievements: [
                         "중단된 프로젝트 리스크 관리 및 재개",
                         "제작비 회수율 115% 달성",
                         "국내외 동시 유통 체계 구축"
                     ],
-                    image: "https://upload.wikimedia.org/wikipedia/ko/7/7b/%EC%9A%B0%EB%A6%AC%EB%8A%94_%EC%98%A4%EB%8A%98%EB%B6%80%ED%84%B0_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg",
-                    fallbackImage: "https://placehold.co/600x900/444/FFF?text=Woori+the+Virgin"
+                    // 👇 여기를 고치세요
+                    image: "./우리는 오늘부터 2인 포스터 인쇄용-02.jpg"
                 },
                 {
                     title: "기억, 하리 1, 2",
                     role: "프로듀서",
                     period: "2018.05 - 2019.04",
                     broadcaster: "Tooniverse",
-                    cast: "박지예, 현준",
                     desc: "신비아파트 외전 실사 드라마.\n투니버스 개국 이래 최고 시청률 갱신.",
                     achievements: [
                         "국내 최초 LED 월 촬영 기법 도입",
                         "주 52시간 근무제 준수 촬영 계획 수립",
                         "실시간 예산 관리 시스템 도입"
                     ],
-                    image: "https://image.tving.com/nt/2018/07/30/P000726895.jpg/dims/resize/F_webp,480",
-                    fallbackImage: "https://placehold.co/600x900/555/FFF?text=Remember+Hari"
+                    // 👇 여기를 고치세요
+                    image: "./기억,하리 포스터.jpg"
                 },
                 {
                     title: "긍정이 체질",
                     role: "프로듀서",
                     period: "2016.07 - 2016.11",
                     broadcaster: "Samsung",
-                    cast: "도경수(D.O.), 채서진",
                     desc: "이병헌 감독 연출 웹드라마.\n누적 조회수 4,500만 건 대기록.",
                     achievements: [
                         "영화 시스템의 웹드라마 도입 시도",
                         "데이터 기반 피칭으로 추가 투자 유치",
                         "콘티/스토리보드 프리비주얼 강화"
                     ],
-                    image: "https://upload.wikimedia.org/wikipedia/ko/6/6c/%EA%B8%8D%EC%A0%95%EC%9D%B4_%EC%B2%B4%EC%A7%88_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg",
-                    fallbackImage: "https://placehold.co/600x900/666/FFF?text=Be+Positive"
+                    // 👇 여기를 고치세요
+                    image: "./긍정이 체질.jpg"
                 }
             ];
 
-            const ImageWithFallback = ({ src, fallbackSrc, alt, className }) => {
-                const [imgSrc, setImgSrc] = useState(src);
+            // 이미지 컴포넌트 (에러나면 회색박스 보여줌)
+            const ImageWithFallback = ({ src, alt }) => {
+                const [error, setError] = useState(false);
+                if (error) {
+                    return (
+                        <div className="w-full h-full bg-gray-800 flex flex-col items-center justify-center text-gray-500 p-4 text-center">
+                            <span className="text-xs uppercase tracking-widest mb-2">Image not found</span>
+                            <span className="text-sm font-bold text-gray-400">{alt}</span>
+                        </div>
+                    );
+                }
                 return (
-                    <img
-                        src={imgSrc}
-                        alt={alt}
-                        className={className}
-                        onError={() => setImgSrc(fallbackSrc)}
+                    <img 
+                        src={src} 
+                        alt={alt} 
+                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                        onError={() => setError(true)}
                     />
                 );
             };
 
             return (
                 <div className="bg-white min-h-screen text-black selection:bg-black selection:text-white">
-                
-                {/* Navigation */}
-                <nav className="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-black/5 transition-all duration-300">
-                    <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-                    <div className="flex justify-between items-center h-24">
-                        <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection('home')}>
-                        <span className="font-bold text-2xl tracking-tighter font-syncopate">
-                            CHOO<span className="font-light">HS</span>
-                        </span>
-                        </div>
-                        
-                        <div className="hidden md:flex space-x-12">
-                        {['Home', 'About', 'Projects', 'Contact'].map((item) => (
-                            <button
-                            key={item}
-                            onClick={() => scrollToSection(item.toLowerCase())}
-                            className={`text-sm font-bold uppercase tracking-widest transition-all duration-300 relative group ${
-                                activeSection === item.toLowerCase() ? 'text-black' : 'text-gray-400 hover:text-black'
-                            }`}
-                            >
-                            {item}
-                            <span className={`absolute -bottom-2 left-0 w-full h-[1px] bg-black transform origin-left transition-transform duration-300 ${activeSection === item.toLowerCase() ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
-                            </button>
-                        ))}
-                        </div>
-
-                        <div className="md:hidden">
-                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-black p-2">
-                            {isMenuOpen ? <X /> : <Menu />}
-                        </button>
-                        </div>
-                    </div>
-                    </div>
-
-                    {isMenuOpen && (
-                    <div className="md:hidden bg-white border-t border-gray-100 absolute w-full h-screen left-0 top-24 z-50 p-6">
-                        <div className="flex flex-col space-y-8 mt-10">
-                        {['Home', 'About', 'Projects', 'Contact'].map((item) => (
-                            <button
-                            key={item}
-                            onClick={() => scrollToSection(item.toLowerCase())}
-                            className="text-4xl font-black text-left uppercase tracking-tighter hover:text-gray-500 transition-colors font-syncopate"
-                            >
-                            {item}
-                            </button>
-                        ))}
-                        </div>
-                    </div>
-                    )}
-                </nav>
-
-                {/* Hero Section */}
-                <section id="home" className="relative min-h-screen flex items-center pt-24">
-                    <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-                        <div className="lg:col-span-8">
-                        <p className="text-sm font-bold tracking-[0.2em] mb-8 text-gray-500 uppercase animate-fade-in-up">
-                            Executive Producer & Content Strategist
-                        </p>
-                        <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black leading-[0.9] tracking-tighter mb-10 animate-fade-in-up delay-100">
-                            CHOO<br/>HYUN<br/>SUNG.
-                        </h1>
-                        <p className="text-xl md:text-2xl font-light text-gray-600 max-w-2xl leading-relaxed animate-fade-in-up delay-200">
-                            콘텐츠의 가치를 증명하는 전략가.<br/>
-                            리스크를 기회로 바꾸는 <span className="font-bold text-black border-b border-black">총괄 프로듀서</span> 추현성입니다.
-                        </p>
-                        </div>
-                        
-                        <div className="lg:col-span-4 flex flex-col items-start lg:items-end justify-end pb-2 animate-fade-in-up delay-300">
-                        <button onClick={() => scrollToSection('projects')} className="group flex items-center space-x-4 text-lg font-bold border-b border-black pb-2 hover:opacity-60 transition-opacity">
-                            <span>VIEW PORTFOLIO</span>
-                            <ArrowUpRight className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300" />
-                        </button>
-                        </div>
-                    </div>
-                    </div>
-                </section>
-
-                {/* About Section */}
-                <section id="about" className="py-32 bg-white border-t border-black/5">
-                    <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-                    <div className="grid lg:grid-cols-2 gap-20">
-                        <div>
-                        <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 mb-8 uppercase">Introduction</h2>
-                        <div className="text-3xl md:text-4xl font-bold leading-tight mb-12">
-                            "크리에이티브는<br/> 
-                            <span className="bg-black text-white px-2">안정적인 시스템</span> 위에서<br/> 
-                            가장 완벽하게 빛납니다."
-                        </div>
-                        <div className="text-lg text-gray-600 leading-relaxed space-y-6">
-                            <p>
-                            <strong className="text-black border-b border-black">12년 이상의 현장 경험</strong>을 통해 드라마, 영화, 웹 콘텐츠 등 다양한 포맷의 미디어 제작을 총괄해왔습니다.
-                            </p>
-                            <p>
-                            단순한 제작 관리를 넘어, 프로젝트의 <strong className="text-black">법적 리스크를 사전에 차단</strong>하고 <strong className="text-black">예산을 효율화</strong>하여 작품이 가진 크리에이티브가 온전히 발휘될 수 있는 환경을 만듭니다.
-                            최근에는 AI 기술을 활용한 제작 공정 혁신을 리드하고 있습니다.
-                            </p>
-                        </div>
-                        </div>
-
-                        <div className="bg-gray-50 p-10 md:p-14 h-full flex flex-col justify-between border border-gray-100">
-                        <div>
-                            <h3 className="text-2xl font-bold mb-8">Current Position</h3>
-                            <ul className="space-y-6">
-                            <li className="flex flex-col">
-                                <span className="text-sm text-gray-400 font-bold uppercase tracking-wider mb-1">Company</span>
-                                <span className="text-xl font-medium">㈜크리에이티브리더스그룹에이트</span>
-                            </li>
-                            <li className="flex flex-col">
-                                <span className="text-sm text-gray-400 font-bold uppercase tracking-wider mb-1">Role</span>
-                                <span className="text-xl font-medium">미디어콘텐츠본부 총괄프로듀서</span>
-                            </li>
-                            <li className="flex flex-col">
-                                <span className="text-sm text-gray-400 font-bold uppercase tracking-wider mb-1">Focus</span>
-                                <span className="text-xl font-medium">드라마 기획, 제작 총괄, 리스크 매니지먼트</span>
-                            </li>
-                            </ul>
-                        </div>
-                        
-                        <div className="mt-12 pt-8 border-t border-gray-200">
-                            <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <div className="text-4xl font-black mb-1">3</div>
-                                <div className="text-sm text-gray-500 uppercase font-bold">Hit Dramas<br/>(Recent)</div>
-                            </div>
-                            <div>
-                                <div className="text-4xl font-black mb-1">10<span className="text-2xl">억+</span></div>
-                                <div className="text-sm text-gray-500 uppercase font-bold">Gov Funding<br/>Secured</div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </section>
-
-                {/* Career History */}
-                <section className="py-20 border-t border-black/5">
-                    <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-                        <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 mb-12 uppercase">Career History</h2>
-                        <div className="space-y-0">
-                        {[
-                            {
-                            company: "㈜크리에이티브리더스그룹에이트",
-                            period: "2022.05 - Present",
-                            role: "미디어콘텐츠본부 총괄프로듀서",
-                            detail: "모범택시2,3, 아이쇼핑, 오늘도 사랑스럽개 총괄"
-                            },
-                            {
-                            company: "㈜인스터",
-                            period: "2015.01 - 2022.04",
-                            role: "기획제작본부 프로듀서",
-                            detail: "기억하리, 빙상의 신, 긍정이 체질 등 웹드라마 제작"
-                            },
-                            {
-                            company: "프리랜서 / 기타",
-                            period: "2014.03 - 2014.10",
-                            role: "라인프로듀서 / 제작부",
-                            detail: "어벤져스: 에이지 오브 울트론, 벼락 맞은 문방구2"
-                            }
-                        ].map((job, index) => (
-                            <div key={index} className="group border-t border-gray-200 py-10 hover:bg-gray-50 transition-colors cursor-default">
-                            <div className="grid md:grid-cols-12 gap-6 items-center">
-                                <div className="md:col-span-3 text-sm font-bold text-gray-500 group-hover:text-black transition-colors">
-                                    {job.period}
+                    {/* Navigation */}
+                    <nav className="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-black/5 transition-all duration-300">
+                        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+                            <div className="flex justify-between items-center h-24">
+                                <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection('home')}>
+                                    <span className="font-bold text-2xl tracking-tighter font-syncopate">CHOO<span className="font-light">HS</span></span>
                                 </div>
-                                <div className="md:col-span-4 text-xl font-bold">
-                                    {job.company}
-                                </div>
-                                <div className="md:col-span-3 text-lg text-gray-600">
-                                    {job.role}
-                                </div>
-                                <div className="md:col-span-2 text-sm text-gray-500 text-right opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    {job.detail}
-                                </div>
-                            </div>
-                            </div>
-                        ))}
-                        <div className="border-t border-gray-200"></div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Projects Section */}
-                <section id="projects" className="py-32 bg-black text-white">
-                    <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-                    <div className="flex flex-col md:flex-row justify-between items-end mb-20">
-                        <div>
-                        <h2 className="text-sm font-bold tracking-[0.2em] text-gray-500 mb-4 uppercase">Selected Works</h2>
-                        <div className="text-5xl md:text-6xl font-black tracking-tight">KEY PROJECTS</div>
-                        </div>
-                        <div className="hidden md:block text-right text-gray-500 text-sm font-mono">
-                        SCROLL TO EXPLORE <br/> ↓
-                        </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-                        {projects.map((project, index) => (
-                        <div key={index} className="group cursor-pointer">
-                            <div className="relative aspect-[2/3] overflow-hidden bg-gray-900 mb-6 grayscale hover:grayscale-0 transition-all duration-700 ease-in-out">
-                            <ImageWithFallback 
-                                src={project.image}
-                                fallbackSrc={project.fallbackImage}
-                                alt={project.title}
-                                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                            />
-                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
-                            
-                            <div className="absolute inset-0 p-6 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
-                                <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                    <ul className="space-y-2 text-sm text-gray-300">
-                                    {project.achievements.map((ach, i) => (
-                                        <li key={i} className="flex items-start">
-                                        <span className="mr-2 text-white">+</span> {ach}
-                                        </li>
+                                <div className="hidden md:flex space-x-12">
+                                    {['Home', 'About', 'Projects', 'Contact'].map((item) => (
+                                        <button key={item} onClick={() => scrollToSection(item.toLowerCase())} className={`text-sm font-bold uppercase tracking-widest transition-all duration-300 relative group ${activeSection === item.toLowerCase() ? 'text-black' : 'text-gray-400 hover:text-black'}`}>
+                                            {item}
+                                            <span className={`absolute -bottom-2 left-0 w-full h-[1px] bg-black transform origin-left transition-transform duration-300 ${activeSection === item.toLowerCase() ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                                        </button>
                                     ))}
-                                    </ul>
+                                </div>
+                                <div className="md:hidden">
+                                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-black p-2">{isMenuOpen ? <X /> : <Menu />}</button>
                                 </div>
                             </div>
+                        </div>
+                        {isMenuOpen && (
+                            <div className="md:hidden bg-white border-t border-gray-100 absolute w-full h-screen left-0 top-24 z-50 p-6">
+                                <div className="flex flex-col space-y-8 mt-10">
+                                    {['Home', 'About', 'Projects', 'Contact'].map((item) => (
+                                        <button key={item} onClick={() => scrollToSection(item.toLowerCase())} className="text-4xl font-black text-left uppercase tracking-tighter hover:text-gray-500 transition-colors font-syncopate">{item}</button>
+                                    ))}
+                                </div>
                             </div>
+                        )}
+                    </nav>
 
-                            <div className="border-t border-gray-800 pt-4">
-                            <div className="flex justify-between items-baseline mb-1">
-                                <h3 className="text-xl font-bold text-white">{project.title}</h3>
-                                <span className="text-xs font-bold text-gray-500 border border-gray-700 px-2 py-0.5 rounded-full">{project.broadcaster}</span>
-                            </div>
-                            <p className="text-gray-400 text-sm mb-3">{project.role}</p>
-                            <p className="text-gray-500 text-sm leading-relaxed whitespace-pre-line">{project.desc}</p>
+                    {/* Hero Section */}
+                    <section id="home" className="relative min-h-screen flex items-center pt-24">
+                        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full">
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+                                <div className="lg:col-span-8">
+                                    <p className="text-sm font-bold tracking-[0.2em] mb-8 text-gray-500 uppercase animate-fade-in-up">Executive Producer & Content Strategist</p>
+                                    <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black leading-[0.9] tracking-tighter mb-10 animate-fade-in-up delay-100">CHOO<br/>HYUN<br/>SUNG.</h1>
+                                    <p className="text-xl md:text-2xl font-light text-gray-600 max-w-2xl leading-relaxed animate-fade-in-up delay-200">콘텐츠의 가치를 증명하는 전략가.<br/>리스크를 기회로 바꾸는 <span className="font-bold text-black border-b border-black">총괄 프로듀서</span> 추현성입니다.</p>
+                                </div>
+                                <div className="lg:col-span-4 flex flex-col items-start lg:items-end justify-end pb-2 animate-fade-in-up delay-300">
+                                    <button onClick={() => scrollToSection('projects')} className="group flex items-center space-x-4 text-lg font-bold border-b border-black pb-2 hover:opacity-60 transition-opacity">
+                                        <span>VIEW PORTFOLIO</span>
+                                        <ArrowUpRight className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        ))}
-                    </div>
-                    </div>
-                </section>
+                    </section>
 
-                {/* Contact Section */}
-                <section id="contact" className="py-32 bg-white">
-                    <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-                    <div className="flex flex-col items-center text-center">
-                        <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 mb-8 uppercase">Get in Touch</h2>
-                        <h3 className="text-5xl md:text-7xl font-black tracking-tighter mb-12">
-                        LET'S WORK<br/>TOGETHER.
-                        </h3>
-                        
-                        <div className="w-full max-w-2xl border-t border-b border-black">
-                        <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-black">
-                            <div className="py-12 group hover:bg-black hover:text-white transition-colors duration-300">
-                            <div className="text-sm font-bold uppercase tracking-widest mb-4 text-gray-500 group-hover:text-gray-400">Phone</div>
-                            <div className="text-2xl md:text-3xl font-bold font-mono">010.5300.5577</div>
-                            </div>
-                            <div className="py-12 group hover:bg-black hover:text-white transition-colors duration-300">
-                            <div className="text-sm font-bold uppercase tracking-widest mb-4 text-gray-500 group-hover:text-gray-400">Email</div>
-                            <div className="text-2xl md:text-3xl font-bold font-mono">usohs@naver.com</div>
+                    {/* About Section */}
+                    <section id="about" className="py-32 bg-white border-t border-black/5">
+                        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+                            <div className="grid lg:grid-cols-2 gap-20">
+                                <div>
+                                    <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 mb-8 uppercase">Introduction</h2>
+                                    <div className="text-3xl md:text-4xl font-bold leading-tight mb-12">"크리에이티브는<br/> <span className="bg-black text-white px-2">안정적인 시스템</span> 위에서<br/> 가장 완벽하게 빛납니다."</div>
+                                    <div className="text-lg text-gray-600 leading-relaxed space-y-6">
+                                        <p><strong className="text-black border-b border-black">12년 이상의 현장 경험</strong>을 통해 드라마, 영화, 웹 콘텐츠 등 다양한 포맷의 미디어 제작을 총괄해왔습니다.</p>
+                                        <p>단순한 제작 관리를 넘어, 프로젝트의 <strong className="text-black">법적 리스크를 사전에 차단</strong>하고 <strong className="text-black">예산을 효율화</strong>하여 작품이 가진 크리에이티브가 온전히 발휘될 수 있는 환경을 만듭니다.</p>
+                                    </div>
+                                </div>
+                                <div className="bg-gray-50 p-10 md:p-14 h-full flex flex-col justify-between border border-gray-100">
+                                    <div>
+                                        <h3 className="text-2xl font-bold mb-8">Current Position</h3>
+                                        <ul className="space-y-6">
+                                            <li className="flex flex-col"><span className="text-sm text-gray-400 font-bold uppercase tracking-wider mb-1">Company</span><span className="text-xl font-medium">㈜크리에이티브리더스그룹에이트</span></li>
+                                            <li className="flex flex-col"><span className="text-sm text-gray-400 font-bold uppercase tracking-wider mb-1">Role</span><span className="text-xl font-medium">미디어콘텐츠본부 총괄프로듀서</span></li>
+                                        </ul>
+                                    </div>
+                                    <div className="mt-12 pt-8 border-t border-gray-200">
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div><div className="text-4xl font-black mb-1">3</div><div className="text-sm text-gray-500 uppercase font-bold">Hit Dramas<br/>(Recent)</div></div>
+                                            <div><div className="text-4xl font-black mb-1">10<span className="text-2xl">억+</span></div><div className="text-sm text-gray-500 uppercase font-bold">Gov Funding<br/>Secured</div></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        </div>
+                    </section>
 
-                        <p className="mt-16 text-gray-500 text-sm">
-                        © 2025 CHOO HYUN SUNG. ALL RIGHTS RESERVED.
-                        </p>
-                    </div>
-                    </div>
-                </section>
+                    {/* Projects Section */}
+                    <section id="projects" className="py-32 bg-black text-white">
+                        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+                            <div className="flex flex-col md:flex-row justify-between items-end mb-20">
+                                <div><h2 className="text-sm font-bold tracking-[0.2em] text-gray-500 mb-4 uppercase">Selected Works</h2><div className="text-5xl md:text-6xl font-black tracking-tight">KEY PROJECTS</div></div>
+                                <div className="hidden md:block text-right text-gray-500 text-sm font-mono">SCROLL TO EXPLORE <br/> ↓</div>
+                            </div>
+                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+                                {projects.map((project, index) => (
+                                    <div key={index} className="group cursor-pointer">
+                                        <div className="relative aspect-[2/3] overflow-hidden bg-gray-900 mb-6 grayscale hover:grayscale-0 transition-all duration-700 ease-in-out">
+                                            <ImageWithFallback src={project.image} alt={project.title} />
+                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                                            <div className="absolute inset-0 p-6 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
+                                                <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                                    <ul className="space-y-2 text-sm text-gray-300">{project.achievements.map((ach, i) => <li key={i} className="flex items-start"><span className="mr-2 text-white">+</span> {ach}</li>)}</ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="border-t border-gray-800 pt-4">
+                                            <div className="flex justify-between items-baseline mb-1"><h3 className="text-xl font-bold text-white">{project.title}</h3><span className="text-xs font-bold text-gray-500 border border-gray-700 px-2 py-0.5 rounded-full">{project.broadcaster}</span></div>
+                                            <p className="text-gray-400 text-sm mb-3">{project.role}</p>
+                                            <p className="text-gray-500 text-sm leading-relaxed whitespace-pre-line">{project.desc}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Contact Section */}
+                    <section id="contact" className="py-32 bg-white">
+                        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+                            <div className="flex flex-col items-center text-center">
+                                <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 mb-8 uppercase">Get in Touch</h2>
+                                <h3 className="text-5xl md:text-7xl font-black tracking-tighter mb-12">LET'S WORK<br/>TOGETHER.</h3>
+                                <div className="w-full max-w-2xl border-t border-b border-black">
+                                    <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-black">
+                                        <div className="py-12 group hover:bg-black hover:text-white transition-colors duration-300">
+                                            <div className="text-sm font-bold uppercase tracking-widest mb-4 text-gray-500 group-hover:text-gray-400">Phone</div>
+                                            <div className="text-2xl md:text-3xl font-bold font-mono">010.5300.5577</div>
+                                        </div>
+                                        <div className="py-12 group hover:bg-black hover:text-white transition-colors duration-300">
+                                            <div className="text-sm font-bold uppercase tracking-widest mb-4 text-gray-500 group-hover:text-gray-400">Email</div>
+                                            <div className="text-2xl md:text-3xl font-bold font-mono">usohs@naver.com</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p className="mt-16 text-gray-500 text-sm">© 2025 CHOO HYUN SUNG. ALL RIGHTS RESERVED.</p>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             );
         };
