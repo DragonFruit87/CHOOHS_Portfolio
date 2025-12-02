@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choo Hyun Sung - Portfolio</title>
+    <!-- 폰트 가져오기 -->
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <!-- 스타일 도구 (Tailwind CSS) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 리액트 엔진 -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        body { font-family: 'Nanum Gothic', sans-serif; }
+        body { font-family: 'Nanum Gothic', sans-serif; word-break: keep-all; }
         .font-syncopate { font-family: 'Syncopate', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="bg-white text-black selection:bg-black selection:text-white">
@@ -20,14 +24,231 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // 아이콘들
-        const Menu = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>;
-        const X = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 18 12"/></svg>;
-        const ArrowUpRight = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>;
+        // ==================================================================================
+        // 📢 [텍스트 수정하는 곳] 여기서 글씨랑 링크를 마음대로 바꾸세요! 
+        // ==================================================================================
+
+        const DATA = {
+            // 1. 상단 메뉴 이름
+            menu: ['Home', 'About', 'Projects', 'Contact'],
+
+            // 2. 첫 화면 (HOME) 내용
+            hero: {
+                subtitle: "Executive Producer & Content Strategist",
+                titleLine1: "CHOO",
+                titleLine2: "HYUN",
+                titleLine3: "SUNG.",
+                desc: "콘텐츠의 가치를 증명하는 전략가.\n리스크를 기회로 바꾸는 총괄 프로듀서 추현성입니다.",
+                buttonText: "VIEW PORTFOLIO"
+            },
+
+            // 3. 소개 (ABOUT) 내용
+            about: {
+                introTitle: "Introduction",
+                mainSentence: "크리에이티브는 안정적인 시스템 위에서\n가장 완벽하게 빛납니다.",
+                desc1: "12년 이상의 현장 경험을 통해 드라마, 영화, 웹 콘텐츠 등 다양한 포맷의 미디어 제작을 총괄해왔습니다.",
+                desc2: "단순한 제작 관리를 넘어, 프로젝트의 법적 리스크를 사전에 차단하고 예산을 효율화하여 작품이 가진 크리에이티브가 온전히 발휘될 수 있는 환경을 만듭니다. 최근에는 AI 기술을 활용한 제작 공정 혁신을 리드하고 있습니다.",
+                currentPosition: {
+                    title: "Current Position",
+                    company: "㈜크리에이티브리더스그룹에이트",
+                    role: "미디어콘텐츠본부 총괄프로듀서",
+                    focus: "드라마 기획, 제작 총괄, 리스크 매니지먼트"
+                },
+                stats: [
+                    { number: "3", label: "Hit Dramas\n(Recent)" },
+                    { number: "10억+", label: "Gov Funding\nSecured" }
+                ]
+            },
+
+            // 4. 경력 사항 (Career History)
+            careers: [
+                {
+                    period: "2022.05 - Present",
+                    company: "㈜크리에이티브리더스그룹에이트",
+                    role: "미디어콘텐츠본부 총괄프로듀서",
+                    detail: "모범택시2,3, 아이쇼핑, 오늘도 사랑스럽개 총괄"
+                },
+                {
+                    period: "2015.01 - 2022.04",
+                    company: "㈜인스터",
+                    role: "기획제작본부 프로듀서",
+                    detail: "기억하리, 빙상의 신, 긍정이 체질 등 웹드라마 제작"
+                },
+                {
+                    period: "2014.03 - 2014.10",
+                    company: "프리랜서 / 기타",
+                    role: "라인프로듀서 / 제작부",
+                    detail: "어벤져스: 에이지 오브 울트론, 벼락 맞은 문방구2"
+                }
+            ],
+
+            // 5. 프로젝트 목록 (여기에 내용을 추가/수정하세요)
+            // videoLink: "" 따옴표 안에 유튜브 주소나 예고편 주소를 넣으세요.
+            // image: "./파일이름.jpg" 또는 "인터넷주소"
+            projects: [
+                {
+                    title: "모범택시 시즌 2, 3",
+                    broadcaster: "SBS",
+                    role: "총괄프로듀서",
+                    desc: "시즌2 최고 시청률 21.0% 기록. 2023년 미니시리즈 1위.\n현재 시즌3 제작 총괄 진행 중.",
+                    achievements: ["법적 리스크 사전 관리", "제작비 150억 규모 예산 관리", "이해관계자 커뮤니케이션"],
+                    image: "https://upload.wikimedia.org/wikipedia/ko/5/52/%EB%AA%A8%EB%B2%94%ED%83%9D%EC%8B%9C_2_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg",
+                    videoLink: "https://www.youtube.com/results?search_query=모범택시2+티저" 
+                },
+                {
+                    title: "아이쇼핑",
+                    broadcaster: "ENA, TVING",
+                    role: "총괄프로듀서",
+                    desc: "웹툰 원작 액션 스릴러.\n100% 사전제작 및 해외 9개국 선판매 완료.",
+                    achievements: ["정부지원금 10억원 유치", "AI 툴 활용 제작 효율화", "글로벌 OTT 동시 편성"],
+                    image: "https://upload.wikimedia.org/wikipedia/ko/thumb/2/23/I_Shopping_Poster.jpg/440px-I_Shopping_Poster.jpg",
+                    videoLink: "https://www.youtube.com/results?search_query=아이쇼핑+드라마"
+                },
+                {
+                    title: "오늘도 사랑스럽개",
+                    broadcaster: "MBC",
+                    role: "총괄프로듀서",
+                    desc: "글로벌 히트 웹툰 원작.\n해외 선판매 및 PPL 수익 극대화.",
+                    achievements: ["CG 비용 1/10 절감 공정", "제작비 대비 123% 매출", "원작 싱크로율 100% 캐스팅"],
+                    image: "https://upload.wikimedia.org/wikipedia/ko/8/87/%EC%98%A4%EB%8A%98%EB%8F%84_%EC%82%AC%EB%9E%91%EC%8A%A4%EB%9F%BD%EA%B0%9C_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg",
+                    videoLink: "https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
+                },
+                {
+                    title: "우리는 오늘부터",
+                    broadcaster: "SBS",
+                    role: "총괄프로듀서",
+                    desc: "미드 'Jane the Virgin' 한국 리메이크.\n편성 난항 극복 및 흑자 전환 성공.",
+                    achievements: ["중단된 프로젝트 재개", "제작비 회수율 115%", "국내외 동시 유통"],
+                    image: "https://upload.wikimedia.org/wikipedia/ko/7/7b/%EC%9A%B0%EB%A6%AC%EB%8A%94_%EC%98%A4%EB%8A%98%EB%B6%80%ED%84%B0_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg",
+                    videoLink: ""
+                },
+                {
+                    title: "기억, 하리 1, 2",
+                    broadcaster: "Tooniverse",
+                    role: "프로듀서",
+                    desc: "신비아파트 외전 실사 드라마.\n투니버스 개국 이래 최고 시청률 갱신.",
+                    achievements: ["국내 최초 LED 월 촬영", "주 52시간 근무제 준수", "실시간 예산 관리"],
+                    image: "https://image.tving.com/nt/2018/07/30/P000726895.jpg/dims/resize/F_webp,480",
+                    videoLink: ""
+                },
+                {
+                    title: "긍정이 체질",
+                    broadcaster: "Samsung",
+                    role: "프로듀서",
+                    desc: "이병헌 감독 연출 웹드라마.\n누적 조회수 4,500만 건 대기록.",
+                    achievements: ["영화 시스템 도입", "추가 투자 유치", "프리비주얼 강화"],
+                    image: "https://upload.wikimedia.org/wikipedia/ko/6/6c/%EA%B8%8D%EC%A0%95%EC%9D%B4_%EC%B2%B4%EC%A7%88_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg",
+                    videoLink: ""
+                },
+                // --- 여기서부터는 '더 보기'를 눌러야 나옵니다 ---
+                {
+                    title: "내일은 실험왕 1, 2",
+                    broadcaster: "Tooniverse",
+                    role: "프로듀서",
+                    desc: "어린이 과학 로맨스 드라마.\n시즌제 제작 및 부가 사업 성공.",
+                    achievements: ["2차 저작물 작성권 확보", "수익률 160% 달성", "해외 수출 확대"],
+                    image: "https://upload.wikimedia.org/wikipedia/ko/thumb/9/9c/%EB%82%B4%EC%9D%BC%EC%9D%80_%EC%8B%A4%ED%97%98%EC%99%95.jpg/300px-%EB%82%B4%EC%9D%BC%EC%9D%80_%EC%8B%A4%ED%97%98%EC%99%95.jpg", // 이미지를 찾아 넣어주세요
+                    videoLink: ""
+                },
+                {
+                    title: "9초 영원의 시간",
+                    broadcaster: "KBS 1TV, Naver",
+                    role: "프로듀서",
+                    desc: "경주 올로케이션 웹드라마.\n지자체 협업 성공 사례.",
+                    achievements: ["경주 엑스포 100% 로케이션", "지자체 투자 유치", "지역 특화 콘텐츠 기획"],
+                    image: "https://placehold.co/600x900/444/FFF?text=9+Seconds", // 이미지를 찾아 넣어주세요
+                    videoLink: ""
+                },
+                {
+                    title: "설행_눈길을 걷다",
+                    broadcaster: "Movie",
+                    role: "프로듀서",
+                    desc: "박소담, 김태훈 주연 예술 영화.\n작품성과 대중성의 조화.",
+                    achievements: ["국제영화제 10개 초청", "네이버 평점 8.46", "혹한기 촬영 리스크 관리"],
+                    image: "https://upload.wikimedia.org/wikipedia/ko/3/36/%EC%84%A4%ED%96%89_%EB%88%88%EA%B8%B8%EC%9D%84_%EA%B1%B7%EB%8B%A4_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg", 
+                    videoLink: ""
+                },
+                {
+                    title: "벼락 맞은 문방구 2",
+                    broadcaster: "Tooniverse",
+                    role: "라인프로듀서",
+                    desc: "어린이 미스터리 판타지.",
+                    achievements: ["현장 프로덕션 총괄", "아역 배우 케어 및 일정 관리", "제작 예산 운용"],
+                    image: "https://placehold.co/600x900/555/FFF?text=Thunderstruck+Stationery", // 이미지를 찾아 넣어주세요
+                    videoLink: ""
+                },
+                {
+                    title: "어벤져스: 에이지 오브 울트론",
+                    broadcaster: "Movie (Global)",
+                    role: "제작부 (Korea Unit)",
+                    desc: "마블 스튜디오 블록버스터.\n서울 로케이션 촬영 지원.",
+                    achievements: ["대규모 헐리우드 시스템 경험", "도심 촬영 통제 지원", "글로벌 스태프 협업"],
+                    image: "https://upload.wikimedia.org/wikipedia/ko/f/f4/%EC%96%B4%EB%B2%A4%EC%A0%B8%EC%8A%A4_-_%EC%97%90%EC%9D%B4%EC%A7%80_%EC%98%A4%EB%B8%8C_%EC%9A%B8%ED%8A%B8%EB%A1%A0_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg",
+                    videoLink: "https://www.youtube.com/watch?v=tmeOjFno6Do"
+                }
+            ],
+
+            // 6. 연락처 (Contact)
+            contact: {
+                title: "LET'S WORK\nTOGETHER.",
+                phone: "010.5300.5577",
+                email: "usohs@naver.com",
+                copyright: "© 2025 CHOO HYUN SUNG. ALL RIGHTS RESERVED."
+            }
+        };
+
+        // ==================================================================================
+        // 🛑 여기 아래는 코드(기계 부품)입니다. 내용은 위에서 고치세요!
+        // ==================================================================================
+
+        const MenuIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>;
+        const XIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 18 12"/></svg>;
+        const ArrowIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>;
+        const PlayIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="rgba(255,255,255,0.9)" stroke="none"><path d="M8 5v14l11-7z"/></svg>;
+
+        const ImageWithFallback = ({ src, alt, videoLink }) => {
+            const [imgSrc, setImgSrc] = useState(src);
+            const [error, setError] = useState(false);
+
+            // 이미지를 클릭하면 새 창으로 링크 열기
+            const handleClick = () => {
+                if (videoLink) {
+                    window.open(videoLink, '_blank');
+                }
+            };
+
+            if (error) {
+                return (
+                    <div onClick={handleClick} className="w-full h-full bg-gray-800 flex flex-col items-center justify-center text-gray-500 p-4 text-center cursor-pointer">
+                        <span className="text-xs uppercase tracking-widest mb-2">Image not found</span>
+                        <span className="text-sm font-bold text-gray-400">{alt}</span>
+                    </div>
+                );
+            }
+            return (
+                <div onClick={handleClick} className="relative w-full h-full group cursor-pointer">
+                    <img 
+                        src={imgSrc} 
+                        alt={alt} 
+                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                        onError={() => setError(true)}
+                    />
+                    {/* 플레이 아이콘 (링크가 있을 때만 보임) */}
+                    {videoLink && (
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
+                            <div className="bg-black/30 backdrop-blur-sm rounded-full p-4 transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                                <PlayIcon />
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
 
         const Portfolio = () => {
             const [isMenuOpen, setIsMenuOpen] = useState(false);
             const [activeSection, setActiveSection] = useState('home');
+            const [showAllProjects, setShowAllProjects] = useState(false); // 더보기 버튼 상태
 
             useEffect(() => {
                 const handleScroll = () => {
@@ -52,117 +273,8 @@
                 }
             };
 
-            // =========================================================================
-            // 👇 [중요] 여기서 프로젝트 내용을 수정하세요! 👇
-            // image: "./파일이름.jpg" 형태로 적으면 됩니다.
-            // =========================================================================
-            const projects = [
-                {
-                    title: "모범택시 시즌 2, 3",
-                    role: "총괄프로듀서",
-                    period: "2022.07 - Present",
-                    broadcaster: "SBS",
-                    desc: "시즌2 최고 시청률 21.0% 기록. 2023년 미니시리즈 1위.\n현재 시즌3 제작 총괄 진행 중.",
-                    achievements: [
-                        "법적 리스크 사전 관리 및 예방 프로세스 구축",
-                        "제작비 150억 규모 예산 통합 관리",
-                        "방송사 및 제작사 간 이해관계 조율"
-                    ],
-                    // 👇 여기를 고치세요 (예: "./taxi2.jpg")
-                    image: "./모범택시3 포스터.jpg"
-                },
-                {
-                    title: "아이쇼핑",
-                    role: "총괄프로듀서",
-                    period: "2023.07 - 2025.08",
-                    broadcaster: "ENA, TVING",
-                    desc: "웹툰 원작 액션 스릴러.\n100% 사전제작 및 해외 9개국 선판매 완료.",
-                    achievements: [
-                        "정부지원금 10억원 유치 성공",
-                        "AI 툴(ChatGPT, Midjourney) 활용 제작 효율화",
-                        "글로벌 OTT 동시 편성 전략 수립"
-                    ],
-                    // 👇 여기를 고치세요
-                    image: "./아이쇼핑 포스터.jfif"
-                },
-                {
-                    title: "오늘도 사랑스럽개",
-                    role: "총괄프로듀서",
-                    period: "2022.06 - 2024.01",
-                    broadcaster: "MBC",
-                    desc: "글로벌 히트 웹툰 원작.\n해외 선판매 및 PPL 수익 극대화.",
-                    achievements: [
-                        "CG 공정 효율화를 통한 비용 1/10 절감",
-                        "제작비 대비 123% 매출 달성",
-                        "원작 싱크로율 100% 캐스팅 실현"
-                    ],
-                    // 👇 여기를 고치세요
-                    image: "./0329_오늘도사랑스럽개_개인 서원.jpg"
-                },
-                {
-                    title: "우리는 오늘부터",
-                    role: "총괄프로듀서",
-                    period: "2021.08 - 2022.06",
-                    broadcaster: "SBS",
-                    desc: "미드 'Jane the Virgin' 한국 리메이크.\n편성 난항 극복 및 흑자 전환 성공.",
-                    achievements: [
-                        "중단된 프로젝트 리스크 관리 및 재개",
-                        "제작비 회수율 115% 달성",
-                        "국내외 동시 유통 체계 구축"
-                    ],
-                    // 👇 여기를 고치세요
-                    image: "./우리는 오늘부터 2인 포스터 인쇄용-02.jpg"
-                },
-                {
-                    title: "기억, 하리 1, 2",
-                    role: "프로듀서",
-                    period: "2018.05 - 2019.04",
-                    broadcaster: "Tooniverse",
-                    desc: "신비아파트 외전 실사 드라마.\n투니버스 개국 이래 최고 시청률 갱신.",
-                    achievements: [
-                        "국내 최초 LED 월 촬영 기법 도입",
-                        "주 52시간 근무제 준수 촬영 계획 수립",
-                        "실시간 예산 관리 시스템 도입"
-                    ],
-                    // 👇 여기를 고치세요
-                    image: "./기억,하리 포스터.jfif"
-                },
-                {
-                    title: "긍정이 체질",
-                    role: "프로듀서",
-                    period: "2016.07 - 2016.11",
-                    broadcaster: "Samsung",
-                    desc: "이병헌 감독 연출 웹드라마.\n누적 조회수 4,500만 건 대기록.",
-                    achievements: [
-                        "영화 시스템의 웹드라마 도입 시도",
-                        "데이터 기반 피칭으로 추가 투자 유치",
-                        "콘티/스토리보드 프리비주얼 강화"
-                    ],
-                    // 👇 여기를 고치세요
-                    image: "./긍정이 체질.jfif"
-                }
-            ];
-
-            // 이미지 컴포넌트 (에러나면 회색박스 보여줌)
-            const ImageWithFallback = ({ src, alt }) => {
-                const [error, setError] = useState(false);
-                if (error) {
-                    return (
-                        <div className="w-full h-full bg-gray-800 flex flex-col items-center justify-center text-gray-500 p-4 text-center">
-                            <span className="text-xs uppercase tracking-widest mb-2">Image not found</span>
-                            <span className="text-sm font-bold text-gray-400">{alt}</span>
-                        </div>
-                    );
-                }
-                return (
-                    <img 
-                        src={src} 
-                        alt={alt} 
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                        onError={() => setError(true)}
-                    />
-                );
-            };
+            // 프로젝트 보이기 로직: 기본 6개, 버튼 누르면 전체
+            const visibleProjects = showAllProjects ? DATA.projects : DATA.projects.slice(0, 6);
 
             return (
                 <div className="bg-white min-h-screen text-black selection:bg-black selection:text-white">
@@ -174,7 +286,7 @@
                                     <span className="font-bold text-2xl tracking-tighter font-syncopate">CHOO<span className="font-light">HS</span></span>
                                 </div>
                                 <div className="hidden md:flex space-x-12">
-                                    {['Home', 'About', 'Projects', 'Contact'].map((item) => (
+                                    {DATA.menu.map((item) => (
                                         <button key={item} onClick={() => scrollToSection(item.toLowerCase())} className={`text-sm font-bold uppercase tracking-widest transition-all duration-300 relative group ${activeSection === item.toLowerCase() ? 'text-black' : 'text-gray-400 hover:text-black'}`}>
                                             {item}
                                             <span className={`absolute -bottom-2 left-0 w-full h-[1px] bg-black transform origin-left transition-transform duration-300 ${activeSection === item.toLowerCase() ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
@@ -182,14 +294,14 @@
                                     ))}
                                 </div>
                                 <div className="md:hidden">
-                                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-black p-2">{isMenuOpen ? <X /> : <Menu />}</button>
+                                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-black p-2">{isMenuOpen ? <XIcon /> : <MenuIcon />}</button>
                                 </div>
                             </div>
                         </div>
                         {isMenuOpen && (
                             <div className="md:hidden bg-white border-t border-gray-100 absolute w-full h-screen left-0 top-24 z-50 p-6">
                                 <div className="flex flex-col space-y-8 mt-10">
-                                    {['Home', 'About', 'Projects', 'Contact'].map((item) => (
+                                    {DATA.menu.map((item) => (
                                         <button key={item} onClick={() => scrollToSection(item.toLowerCase())} className="text-4xl font-black text-left uppercase tracking-tighter hover:text-gray-500 transition-colors font-syncopate">{item}</button>
                                     ))}
                                 </div>
@@ -197,21 +309,36 @@
                         )}
                     </nav>
 
-                    {/* Hero Section */}
-                    <section id="home" className="relative min-h-screen flex items-center pt-24">
-                        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full">
-                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-                                <div className="lg:col-span-8">
-                                    <p className="text-sm font-bold tracking-[0.2em] mb-8 text-gray-500 uppercase animate-fade-in-up">Executive Producer & Content Strategist</p>
-                                    <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black leading-[0.9] tracking-tighter mb-10 animate-fade-in-up delay-100">CHOO<br/>HYUN<br/>SUNG.</h1>
-                                    <p className="text-xl md:text-2xl font-light text-gray-600 max-w-2xl leading-relaxed animate-fade-in-up delay-200">콘텐츠의 가치를 증명하는 전략가.<br/>리스크를 기회로 바꾸는 <span className="font-bold text-black border-b border-black">총괄 프로듀서</span> 추현성입니다.</p>
-                                </div>
-                                <div className="lg:col-span-4 flex flex-col items-start lg:items-end justify-end pb-2 animate-fade-in-up delay-300">
-                                    <button onClick={() => scrollToSection('projects')} className="group flex items-center space-x-4 text-lg font-bold border-b border-black pb-2 hover:opacity-60 transition-opacity">
-                                        <span>VIEW PORTFOLIO</span>
-                                        <ArrowUpRight className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300" />
-                                    </button>
-                                </div>
+                    {/* Hero Section (Design Update: Centered & Full) */}
+                    <section id="home" className="relative min-h-screen flex items-center justify-center pt-24 bg-white overflow-hidden">
+                        {/* Background Deco */}
+                        <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+                             <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-black rounded-full blur-[120px]"></div>
+                             <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-black rounded-full blur-[120px]"></div>
+                        </div>
+
+                        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full text-center relative z-10">
+                            <p className="text-sm md:text-base font-bold tracking-[0.3em] mb-8 text-gray-400 uppercase animate-fade-in-up">
+                                {DATA.hero.subtitle}
+                            </p>
+                            
+                            <div className="font-syncopate font-black leading-[0.85] tracking-tighter mb-10 select-none">
+                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] animate-fade-in-up delay-100">{DATA.hero.titleLine1}</div>
+                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] text-transparent bg-clip-text bg-gradient-to-b from-gray-800 to-black animate-fade-in-up delay-200">{DATA.hero.titleLine2}</div>
+                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] animate-fade-in-up delay-300">{DATA.hero.titleLine3}</div>
+                            </div>
+
+                            <div className="max-w-2xl mx-auto mb-12 animate-fade-in-up delay-500">
+                                <p className="text-lg md:text-xl font-medium text-gray-600 leading-relaxed whitespace-pre-line">
+                                    {DATA.hero.desc}
+                                </p>
+                            </div>
+
+                            <div className="animate-fade-in-up delay-700">
+                                <button onClick={() => scrollToSection('projects')} className="inline-flex items-center space-x-3 text-sm font-bold uppercase tracking-widest border border-black px-8 py-4 hover:bg-black hover:text-white transition-all duration-300">
+                                    <span>{DATA.hero.buttonText}</span>
+                                    <ArrowIcon />
+                                </button>
                             </div>
                         </div>
                     </section>
@@ -221,28 +348,53 @@
                         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
                             <div className="grid lg:grid-cols-2 gap-20">
                                 <div>
-                                    <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 mb-8 uppercase">Introduction</h2>
-                                    <div className="text-3xl md:text-4xl font-bold leading-tight mb-12">"크리에이티브는<br/> <span className="bg-black text-white px-2">안정적인 시스템</span> 위에서<br/> 가장 완벽하게 빛납니다."</div>
+                                    <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 mb-8 uppercase">{DATA.about.introTitle}</h2>
+                                    <div className="text-3xl md:text-4xl font-bold leading-tight mb-12 whitespace-pre-line">{DATA.about.mainSentence}</div>
                                     <div className="text-lg text-gray-600 leading-relaxed space-y-6">
-                                        <p><strong className="text-black border-b border-black">12년 이상의 현장 경험</strong>을 통해 드라마, 영화, 웹 콘텐츠 등 다양한 포맷의 미디어 제작을 총괄해왔습니다.</p>
-                                        <p>단순한 제작 관리를 넘어, 프로젝트의 <strong className="text-black">법적 리스크를 사전에 차단</strong>하고 <strong className="text-black">예산을 효율화</strong>하여 작품이 가진 크리에이티브가 온전히 발휘될 수 있는 환경을 만듭니다.</p>
+                                        <p>{DATA.about.desc1}</p>
+                                        <p>{DATA.about.desc2}</p>
                                     </div>
                                 </div>
                                 <div className="bg-gray-50 p-10 md:p-14 h-full flex flex-col justify-between border border-gray-100">
                                     <div>
-                                        <h3 className="text-2xl font-bold mb-8">Current Position</h3>
+                                        <h3 className="text-2xl font-bold mb-8">{DATA.about.currentPosition.title}</h3>
                                         <ul className="space-y-6">
-                                            <li className="flex flex-col"><span className="text-sm text-gray-400 font-bold uppercase tracking-wider mb-1">Company</span><span className="text-xl font-medium">㈜크리에이티브리더스그룹에이트</span></li>
-                                            <li className="flex flex-col"><span className="text-sm text-gray-400 font-bold uppercase tracking-wider mb-1">Role</span><span className="text-xl font-medium">미디어콘텐츠본부 총괄프로듀서</span></li>
+                                            <li className="flex flex-col"><span className="text-sm text-gray-400 font-bold uppercase tracking-wider mb-1">Company</span><span className="text-xl font-medium">{DATA.about.currentPosition.company}</span></li>
+                                            <li className="flex flex-col"><span className="text-sm text-gray-400 font-bold uppercase tracking-wider mb-1">Role</span><span className="text-xl font-medium">{DATA.about.currentPosition.role}</span></li>
+                                            <li className="flex flex-col"><span className="text-sm text-gray-400 font-bold uppercase tracking-wider mb-1">Focus</span><span className="text-xl font-medium">{DATA.about.currentPosition.focus}</span></li>
                                         </ul>
                                     </div>
                                     <div className="mt-12 pt-8 border-t border-gray-200">
                                         <div className="grid grid-cols-2 gap-4">
-                                            <div><div className="text-4xl font-black mb-1">3</div><div className="text-sm text-gray-500 uppercase font-bold">Hit Dramas<br/>(Recent)</div></div>
-                                            <div><div className="text-4xl font-black mb-1">10<span className="text-2xl">억+</span></div><div className="text-sm text-gray-500 uppercase font-bold">Gov Funding<br/>Secured</div></div>
+                                            {DATA.about.stats.map((stat, i) => (
+                                                <div key={i}>
+                                                    <div className="text-4xl font-black mb-1">{stat.number}</div>
+                                                    <div className="text-sm text-gray-500 uppercase font-bold whitespace-pre-line">{stat.label}</div>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Career History */}
+                    <section className="py-20 border-t border-black/5">
+                        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+                            <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 mb-12 uppercase">Career History</h2>
+                            <div className="space-y-0">
+                                {DATA.careers.map((job, index) => (
+                                    <div key={index} className="group border-t border-gray-200 py-10 hover:bg-gray-50 transition-colors cursor-default">
+                                        <div className="grid md:grid-cols-12 gap-6 items-center">
+                                            <div className="md:col-span-3 text-sm font-bold text-gray-500 group-hover:text-black transition-colors">{job.period}</div>
+                                            <div className="md:col-span-4 text-xl font-bold">{job.company}</div>
+                                            <div className="md:col-span-3 text-lg text-gray-600">{job.role}</div>
+                                            <div className="md:col-span-2 text-sm text-gray-500 text-right opacity-0 group-hover:opacity-100 transition-opacity duration-300">{job.detail}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                                <div className="border-t border-gray-200"></div>
                             </div>
                         </div>
                     </section>
@@ -252,15 +404,16 @@
                         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
                             <div className="flex flex-col md:flex-row justify-between items-end mb-20">
                                 <div><h2 className="text-sm font-bold tracking-[0.2em] text-gray-500 mb-4 uppercase">Selected Works</h2><div className="text-5xl md:text-6xl font-black tracking-tight">KEY PROJECTS</div></div>
-                                <div className="hidden md:block text-right text-gray-500 text-sm font-mono">SCROLL TO EXPLORE <br/> ↓</div>
+                                <div className="hidden md:block text-right text-gray-500 text-sm font-mono">CLICK POSTER TO VIEW TRAILER <br/> ↓</div>
                             </div>
+                            
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-                                {projects.map((project, index) => (
-                                    <div key={index} className="group cursor-pointer">
+                                {visibleProjects.map((project, index) => (
+                                    <div key={index} className="group">
                                         <div className="relative aspect-[2/3] overflow-hidden bg-gray-900 mb-6 grayscale hover:grayscale-0 transition-all duration-700 ease-in-out">
-                                            <ImageWithFallback src={project.image} alt={project.title} />
-                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
-                                            <div className="absolute inset-0 p-6 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
+                                            <ImageWithFallback src={project.image} alt={project.title} videoLink={project.videoLink} />
+                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 pointer-events-none"></div>
+                                            <div className="absolute inset-0 p-6 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none">
                                                 <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                                                     <ul className="space-y-2 text-sm text-gray-300">{project.achievements.map((ach, i) => <li key={i} className="flex items-start"><span className="mr-2 text-white">+</span> {ach}</li>)}</ul>
                                                 </div>
@@ -274,6 +427,18 @@
                                     </div>
                                 ))}
                             </div>
+
+                            {/* View More Button */}
+                            {!showAllProjects && DATA.projects.length > 6 && (
+                                <div className="mt-20 text-center">
+                                    <button 
+                                        onClick={() => setShowAllProjects(true)}
+                                        className="inline-block border border-white/30 text-white px-10 py-4 text-sm font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-300"
+                                    >
+                                        View All Projects
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </section>
 
@@ -282,20 +447,20 @@
                         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
                             <div className="flex flex-col items-center text-center">
                                 <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 mb-8 uppercase">Get in Touch</h2>
-                                <h3 className="text-5xl md:text-7xl font-black tracking-tighter mb-12">LET'S WORK<br/>TOGETHER.</h3>
+                                <h3 className="text-5xl md:text-7xl font-black tracking-tighter mb-12 whitespace-pre-line">{DATA.contact.title}</h3>
                                 <div className="w-full max-w-2xl border-t border-b border-black">
                                     <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-black">
                                         <div className="py-12 group hover:bg-black hover:text-white transition-colors duration-300">
                                             <div className="text-sm font-bold uppercase tracking-widest mb-4 text-gray-500 group-hover:text-gray-400">Phone</div>
-                                            <div className="text-2xl md:text-3xl font-bold font-mono">010.5300.5577</div>
+                                            <div className="text-2xl md:text-3xl font-bold font-mono">{DATA.contact.phone}</div>
                                         </div>
                                         <div className="py-12 group hover:bg-black hover:text-white transition-colors duration-300">
                                             <div className="text-sm font-bold uppercase tracking-widest mb-4 text-gray-500 group-hover:text-gray-400">Email</div>
-                                            <div className="text-2xl md:text-3xl font-bold font-mono">usohs@naver.com</div>
+                                            <div className="text-2xl md:text-3xl font-bold font-mono">{DATA.contact.email}</div>
                                         </div>
                                     </div>
                                 </div>
-                                <p className="mt-16 text-gray-500 text-sm">© 2025 CHOO HYUN SUNG. ALL RIGHTS RESERVED.</p>
+                                <p className="mt-16 text-gray-500 text-sm">{DATA.contact.copyright}</p>
                             </div>
                         </div>
                     </section>
