@@ -5,28 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choo Hyun Sung - Portfolio</title>
     
-    <!-- 1. 폰트 가져오기 (Montserrat 추가됨) -->
+    <!-- 1. 폰트 가져오기 (세련된 Montserrat + 가독성 좋은 나눔고딕) -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Nanum+Gothic:wght@400;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- 2. 스타일 도구 -->
+    <!-- 2. 필수 도구 (Tailwind, React) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <!-- 3. 꾸미기 설정 (여기에 마우스 효과, 그라데이션 다 들어있음) -->
+    <!-- 3. 스타일 설정 (마우스, 그라데이션 등) -->
     <style>
-        /* 기본 폰트 설정: 영어는 Montserrat, 한글은 나눔고딕 */
-        body { font-family: 'Nanum Gothic', sans-serif; word-break: keep-all; cursor: none; /* 기본 마우스 숨김 */ }
+        /* 기본 설정 */
+        body { 
+            font-family: 'Nanum Gothic', sans-serif; 
+            word-break: keep-all; 
+            cursor: none; /* 기본 마우스 커서 숨김 */
+        }
         .font-eng { font-family: 'Montserrat', sans-serif; }
         .font-syncopate { font-family: 'Syncopate', sans-serif; }
-
-        /* 스크롤바 숨기기 */
+        
+        /* 스크롤바 숨김 */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
 
-        /* ✨ 2. 글씨 그라데이션 애니메이션 (오로라 효과) */
+        /* 글씨 그라데이션 애니메이션 (오로라 효과) */
         .text-gradient-anim {
-            background: linear-gradient(to right, #000000, #4f46e5, #000000); /* 검정 -> 남색 -> 검정 */
+            background: linear-gradient(to right, #000000, #4f46e5, #000000); /* 검정-남색-검정 */
             background-size: 200% auto;
             -webkit-background-clip: text;
             background-clip: text;
@@ -37,22 +41,22 @@
             to { background-position: 200% center; }
         }
 
-        /* ✨ 3. 마우스 커서 효과 */
+        /* 커스텀 마우스 커서 */
         .custom-cursor {
             position: fixed;
             top: 0; left: 0;
             width: 20px; height: 20px;
-            background-color: rgba(0, 0, 0, 0.8); /* 검정색 점 */
+            background-color: rgba(0, 0, 0, 0.8);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
             transition: width 0.2s, height 0.2s, background-color 0.2s;
-            mix-blend-mode: difference; /* 배경색이랑 반전돼서 잘 보이게 */
+            mix-blend-mode: difference; /* 배경색과 반전 효과 */
         }
+        /* 마우스가 버튼 위에 있을 때 */
         .custom-cursor.hovered {
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             background-color: rgba(255, 255, 255, 0.2);
             border: 1px solid white;
         }
@@ -65,23 +69,19 @@
         const { useState, useEffect } = React;
 
         // ==================================================================================
-        // 📢 [텍스트 수정하는 곳] 여기서 글씨랑 링크를 마음대로 바꾸세요! 
+        // 📢 [DATA 수정 영역] 입력하신 내용을 그대로 적용했습니다.
         // ==================================================================================
 
         const DATA = {
-            // 1. 상단 메뉴 이름
             menu: ['Home', 'About', 'Projects', 'Contact'],
-
-            // 2. 첫 화면 (HOME) 내용
             hero: {
                 subtitle: "Executive Producer & Content Strategist",
                 titleLine1: "CHOO",
                 titleLine2: "HYUN",
-                titleLine3: "SUNG", // SUNG 뒤에 점(.)이 빠져있어서 추가했습니다.
+                titleLine3: "SUNG.",
                 desc: "콘텐츠의 가치를 증명하는 전략가\n리스크를 기회로 바꾸는 총괄 프로듀서 추현성입니다.",
                 buttonText: "VIEW PORTFOLIO",
-                
-                // 👇 [수정] 파일 이름을 영어로 간단하게 바꿔서 넣으세요!
+                // 배경 이미지 (파일명은 꼭 영어로 바꾸세요!)
                 backgroundImages: [
                     "./bg1.jpg", 
                     "./bg2.jpg",
@@ -90,8 +90,6 @@
                     "./bg5.jpg"
                 ]
             },
-
-            // 3. 소개 (ABOUT) 내용
             about: {
                 introTitle: "Introduction",
                 mainSentence: "크리에이티브는 안정적인 시스템 위에서\n가장 완벽하게 빛납니다.",
@@ -108,8 +106,6 @@
                     { number: "10억+", label: "Gov Funding\nSecured" }
                 ]
             },
-
-            // 4. 경력 사항 (Career History)
             careers: [
                 {
                     period: "2022.05 - Present",
@@ -130,10 +126,6 @@
                     detail: "어벤져스: 에이지 오브 울트론, 벼락 맞은 문방구2"
                 }
             ],
-
-            // 5. 프로젝트 목록 (여기에 내용을 추가/수정하세요)
-            // videoLink: "" 따옴표 안에 유튜브 주소나 예고편 주소를 넣으세요.
-            // image: "./파일이름.jpg" 또는 "인터넷주소"
             projects: [
                 {
                     title: "모범택시 시즌 2, 3",
@@ -189,14 +181,13 @@
                     image: "./설행 눈길을 걷다.jfif", 
                     videoLink: "https://youtu.be/p7Ew121_gbA?si=zEiXGmytRPHZoxAy"
                 },
-                // --- 여기서부터는 '더 보기'를 눌러야 나옵니다 ---
                 {
                     title: "내일은 실험왕 1, 2",
                     broadcaster: "Tooniverse",
                     role: "프로듀서",
                     desc: "어린이 과학 로맨스 드라마.\n시즌제 제작 및 부가 사업 성공.",
                     achievements: ["2차 저작물 작성권 확보", "수익률 160% 달성", "해외 수출 확대"],
-                    image: "./내일은 실험왕2.jfif", // 이미지를 찾아 넣어주세요
+                    image: "./내일은 실험왕2.jfif",
                     videoLink: "https://youtu.be/YC-Ir-ZzdrI?si=APY08uwtzLeVbGa7"
                 },
                 {
@@ -214,7 +205,7 @@
                     role: "프로듀서",
                     desc: "경주 올로케이션 웹드라마.\n지자체 협업 성공 사례.",
                     achievements: ["경주 엑스포 100% 로케이션", "지자체 투자 유치", "지역 특화 콘텐츠 기획"],
-                    image: "./9초 영원의 시간.jfif", // 이미지를 찾아 넣어주세요
+                    image: "./9초 영원의 시간.jfif",
                     videoLink: "https://naver.me/GZ6GC1z1"
                 },
                 {
@@ -223,7 +214,7 @@
                     role: "라인프로듀서",
                     desc: "어린이 미스터리 판타지.",
                     achievements: ["촬영 현장 관리", "예산 집행 및 정산 지원"],
-                    image: "./벼락맞은문방구2.jfif", // 이미지를 찾아 넣어주세요
+                    image: "./벼락맞은문방구2.jfif",
                     videoLink: "https://youtu.be/PUEE2UP84aA?si=8cAJeVPPas99L4WF"
                 },
                 {
@@ -236,8 +227,6 @@
                     videoLink: "https://www.youtube.com/watch?v=tmeOjFno6Do"
                 }
             ],
-
-            // 6. 연락처 (Contact)
             contact: {
                 title: "LET'S WORK\nTOGETHER.",
                 phone: "010.5300.5577",
@@ -247,28 +236,28 @@
         };
 
         // ==================================================================================
-        // 🛑 여기 아래는 코드(기계 부품)입니다. 내용은 위에서 고치세요!
+        // ⚙️ 기능 코드 영역 (수정하지 마세요)
         // ==================================================================================
 
-// 👇 [이 부분을 새로 추가하세요] 마우스 커서 컴포넌트
+        // 마우스 커서 컴포넌트
         const CustomCursor = () => {
             const [position, setPosition] = useState({ x: 0, y: 0 });
             const [isHovered, setIsHovered] = useState(false);
 
             useEffect(() => {
-                const updateCursor = (e) => {
-                    setPosition({ x: e.clientX, y: e.clientY });
-                };
-                
-                // 링크나 버튼 위에 올렸을 때 커서 커지게 하기
+                const updateCursor = (e) => setPosition({ x: e.clientX, y: e.clientY });
                 const handleMouseOver = (e) => {
-                    if (e.target.tagName === 'BUTTON' || e.target.closest('button') || e.target.tagName === 'A' || e.target.closest('.group')) {
+                    const tag = e.target.tagName;
+                    const closestBtn = e.target.closest('button');
+                    const closestLink = e.target.closest('a');
+                    const closestGroup = e.target.closest('.group');
+                    
+                    if (tag === 'BUTTON' || tag === 'A' || closestBtn || closestLink || closestGroup) {
                         setIsHovered(true);
                     } else {
                         setIsHovered(false);
                     }
                 };
-
                 window.addEventListener('mousemove', updateCursor);
                 window.addEventListener('mouseover', handleMouseOver);
                 return () => {
@@ -277,29 +266,21 @@
                 };
             }, []);
 
-            return (
-                <div 
-                    className={`custom-cursor ${isHovered ? 'hovered' : ''}`}
-                    style={{ left: `${position.x}px`, top: `${position.y}px` }}
-                />
-            );
+            return <div className={`custom-cursor ${isHovered ? 'hovered' : ''}`} style={{ left: `${position.x}px`, top: `${position.y}px` }} />;
         };
-        // 👆 [여기까지 추가]
-        
+
+        // 아이콘들
         const MenuIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>;
         const XIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 18 12"/></svg>;
         const ArrowIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>;
         const PlayIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="rgba(255,255,255,0.9)" stroke="none"><path d="M8 5v14l11-7z"/></svg>;
 
+        // 이미지 컴포넌트
         const ImageWithFallback = ({ src, alt, videoLink }) => {
             const [imgSrc, setImgSrc] = useState(src);
             const [error, setError] = useState(false);
 
-            const handleClick = () => {
-                if (videoLink) {
-                    window.open(videoLink, '_blank');
-                }
-            };
+            const handleClick = () => { if (videoLink) window.open(videoLink, '_blank'); };
 
             if (error) {
                 return (
@@ -311,12 +292,7 @@
             }
             return (
                 <div onClick={handleClick} className="relative w-full h-full group cursor-pointer">
-                    <img 
-                        src={imgSrc} 
-                        alt={alt} 
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                        onError={() => setError(true)}
-                    />
+                    <img src={imgSrc} alt={alt} className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" onError={() => setError(true)} />
                     {videoLink && (
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
                             <div className="bg-black/30 backdrop-blur-sm rounded-full p-4 transform scale-75 group-hover:scale-100 transition-transform duration-300">
@@ -328,6 +304,7 @@
             );
         };
 
+        // 메인 포트폴리오 컴포넌트
         const Portfolio = () => {
             const [isMenuOpen, setIsMenuOpen] = useState(false);
             const [activeSection, setActiveSection] = useState('home');
@@ -349,6 +326,7 @@
                 return () => window.removeEventListener('scroll', handleScroll);
             }, []);
 
+            // 배경 슬라이드 (2초마다 변경)
             useEffect(() => {
                 if (!DATA.hero.backgroundImages || DATA.hero.backgroundImages.length <= 1) return;
                 const timer = setInterval(() => {
@@ -369,15 +347,11 @@
 
             return (
                 <div className="bg-white min-h-screen text-black selection:bg-black selection:text-white cursor-none">
-                    {/* 👇 [추가됨] 커스텀 마우스 커서 */}
                     <CustomCursor />
-
-                    {/* Navigation */}
                     <nav className="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-black/5 transition-all duration-300">
                         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
                             <div className="flex justify-between items-center h-24">
                                 <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection('home')}>
-                                    {/* 폰트 변경: font-eng 적용 */}
                                     <span className="font-bold text-2xl tracking-tighter font-eng">CHOO<span className="font-light">HS</span></span>
                                 </div>
                                 <div className="hidden md:flex space-x-12">
@@ -404,50 +378,27 @@
                         )}
                     </nav>
 
-                    {/* Hero Section */}
                     <section id="home" className="relative min-h-screen flex items-center justify-center pt-24 bg-gray-900 overflow-hidden">
-                        {/* 배경 이미지 */}
                         {DATA.hero.backgroundImages && DATA.hero.backgroundImages.length > 0 ? (
                             <div className="absolute inset-0 z-0">
                                 {DATA.hero.backgroundImages.map((img, index) => (
-                                    <div 
-                                        key={index}
-                                        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-[1000ms] ease-in-out ${index === heroIndex ? 'opacity-100' : 'opacity-0'}`}
-                                        style={{ backgroundImage: `url(${img})` }}
-                                    />
+                                    <div key={index} className={`absolute inset-0 bg-cover bg-center transition-opacity duration-[1000ms] ease-in-out ${index === heroIndex ? 'opacity-100' : 'opacity-0'}`} style={{ backgroundImage: `url(${img})` }} />
                                 ))}
                                 <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/30 to-white/90"></div>
                             </div>
                         ) : (
                             <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none bg-white"></div>
                         )}
-
-                        {/* 텍스트 내용 */}
                         <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full text-center relative z-10">
-                            <p className="text-sm md:text-base font-bold tracking-[0.3em] mb-8 text-gray-600 uppercase animate-fade-in-up font-eng">
-                                {DATA.hero.subtitle}
-                            </p>
-                            
-                            {/* 👇 [수정됨] 그라데이션 텍스트 & 폰트 적용 */}
+                            <p className="text-sm md:text-base font-bold tracking-[0.3em] mb-8 text-gray-600 uppercase animate-fade-in-up font-eng">{DATA.hero.subtitle}</p>
                             <div className="font-eng font-black leading-[0.85] tracking-tighter mb-10 select-none">
-                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] animate-fade-in-up delay-100 text-black drop-shadow-xl">
-                                    {DATA.hero.titleLine1}
-                                </div>
-                                {/* 여기가 그라데이션 들어가는 부분 */}
-                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] text-gradient-anim animate-fade-in-up delay-200 drop-shadow-xl">
-                                    {DATA.hero.titleLine2}
-                                </div>
-                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] animate-fade-in-up delay-300 text-black drop-shadow-xl">
-                                    {DATA.hero.titleLine3}
-                                </div>
+                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] animate-fade-in-up delay-100 text-black drop-shadow-xl">{DATA.hero.titleLine1}</div>
+                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] text-gradient-anim animate-fade-in-up delay-200 drop-shadow-xl">{DATA.hero.titleLine2}</div>
+                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] animate-fade-in-up delay-300 text-black drop-shadow-xl">{DATA.hero.titleLine3}</div>
                             </div>
-
                             <div className="max-w-2xl mx-auto mb-12 animate-fade-in-up delay-500">
-                                <p className="text-lg md:text-xl font-medium text-gray-800 leading-relaxed whitespace-pre-line drop-shadow-md">
-                                    {DATA.hero.desc}
-                                </p>
+                                <p className="text-lg md:text-xl font-medium text-gray-800 leading-relaxed whitespace-pre-line drop-shadow-md">{DATA.hero.desc}</p>
                             </div>
-
                             <div className="animate-fade-in-up delay-700">
                                 <button onClick={() => scrollToSection('projects')} className="inline-flex items-center space-x-3 text-sm font-bold uppercase tracking-widest border border-black px-8 py-4 bg-white/50 hover:bg-black hover:text-white transition-all duration-300 backdrop-blur-sm active:scale-95 font-eng">
                                     <span>{DATA.hero.buttonText}</span>
@@ -457,7 +408,6 @@
                         </div>
                     </section>
 
-                    {/* About Section */}
                     <section id="about" className="py-32 bg-white border-t border-black/5">
                         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
                             <div className="grid lg:grid-cols-2 gap-20">
@@ -481,10 +431,7 @@
                                     <div className="mt-12 pt-8 border-t border-gray-200">
                                         <div className="grid grid-cols-2 gap-4">
                                             {DATA.about.stats.map((stat, i) => (
-                                                <div key={i}>
-                                                    <div className="text-4xl font-black mb-1 font-eng">{stat.number}</div>
-                                                    <div className="text-sm text-gray-500 uppercase font-bold whitespace-pre-line font-eng">{stat.label}</div>
-                                                </div>
+                                                <div key={i}><div className="text-4xl font-black mb-1 font-eng">{stat.number}</div><div className="text-sm text-gray-500 uppercase font-bold whitespace-pre-line font-eng">{stat.label}</div></div>
                                             ))}
                                         </div>
                                     </div>
@@ -493,7 +440,6 @@
                         </div>
                     </section>
 
-                    {/* Career History */}
                     <section className="py-20 border-t border-black/5">
                         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
                             <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 mb-12 uppercase font-eng">Career History</h2>
@@ -513,14 +459,12 @@
                         </div>
                     </section>
 
-                    {/* Projects Section */}
                     <section id="projects" className="py-32 bg-black text-white">
                         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
                             <div className="flex flex-col md:flex-row justify-between items-end mb-20">
                                 <div><h2 className="text-sm font-bold tracking-[0.2em] text-gray-500 mb-4 uppercase font-eng">Selected Works</h2><div className="text-5xl md:text-6xl font-black tracking-tight font-eng">KEY PROJECTS</div></div>
                                 <div className="hidden md:block text-right text-gray-500 text-sm font-mono font-eng">CLICK POSTER TO VIEW TRAILER <br/> ↓</div>
                             </div>
-                            
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
                                 {visibleProjects.map((project, index) => (
                                     <div key={index} className="group">
@@ -541,14 +485,9 @@
                                     </div>
                                 ))}
                             </div>
-
-                            {/* View More Button */}
                             {!showAllProjects && DATA.projects.length > 6 && (
                                 <div className="mt-20 text-center">
-                                    <button 
-                                        onClick={() => setShowAllProjects(true)}
-                                        className="inline-block border border-white/30 text-white px-10 py-4 text-sm font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-300 active:scale-95 font-eng"
-                                    >
+                                    <button onClick={() => setShowAllProjects(true)} className="inline-block border border-white/30 text-white px-10 py-4 text-sm font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-300 active:scale-95 font-eng">
                                         View All Projects
                                     </button>
                                 </div>
@@ -556,7 +495,6 @@
                         </div>
                     </section>
 
-                    {/* Contact Section */}
                     <section id="contact" className="py-32 bg-white">
                         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
                             <div className="flex flex-col items-center text-center">
@@ -581,5 +519,9 @@
                 </div>
             );
         };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<Portfolio />);
     </script>
+</body>
+</html>
