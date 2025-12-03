@@ -38,8 +38,19 @@
                 titleLine1: "CHOO",
                 titleLine2: "HYUN",
                 titleLine3: "SUNG",
-                desc: "콘텐츠의 가치를 증명하는 전략가\n리스크를 기회로 바꾸는 프로듀서 추현성입니다.",
-                buttonText: "VIEW PORTFOLIO"
+                desc: "콘텐츠의 가치를 증명하는 전략가.\n리스크를 기회로 바꾸는 총괄 프로듀서 추현성입니다.",
+                buttonText: "VIEW PORTFOLIO",
+                
+                // 👇 [여기에 추가하세요] 배경에 깔릴 이미지들 (여러 장 넣으세요)
+                backgroundImages: [
+                    "./오늘개 단체컷1(수정)", 
+                    "./오늘개 단체컷2(수정)",
+                    "./오늘개 단체컷3(수정)",
+                    "./아이쇼핑 단체컷(전반부2)",
+                    "./아이쇼핑 단체컷(후반부2)(수정)"
+                    // 여기에 본인의 사진 주소를 계속 추가하면 됩니다.
+                    // 예: "./my_photo1.jpg",
+                ]
             },
 
             // 3. 소개 (ABOUT) 내용
@@ -210,7 +221,6 @@
             const [imgSrc, setImgSrc] = useState(src);
             const [error, setError] = useState(false);
 
-            // 이미지를 클릭하면 새 창으로 링크 열기
             const handleClick = () => {
                 if (videoLink) {
                     window.open(videoLink, '_blank');
@@ -233,7 +243,6 @@
                         className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                         onError={() => setError(true)}
                     />
-                    {/* 플레이 아이콘 (링크가 있을 때만 보임) */}
                     {videoLink && (
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
                             <div className="bg-black/30 backdrop-blur-sm rounded-full p-4 transform scale-75 group-hover:scale-100 transition-transform duration-300">
@@ -248,7 +257,8 @@
         const Portfolio = () => {
             const [isMenuOpen, setIsMenuOpen] = useState(false);
             const [activeSection, setActiveSection] = useState('home');
-            const [showAllProjects, setShowAllProjects] = useState(false); // 더보기 버튼 상태
+            const [showAllProjects, setShowAllProjects] = useState(false);
+            const [heroIndex, setHeroIndex] = useState(0); // 배경 이미지 순서
 
             useEffect(() => {
                 const handleScroll = () => {
@@ -265,6 +275,17 @@
                 return () => window.removeEventListener('scroll', handleScroll);
             }, []);
 
+            // 배경 이미지 자동 변경 타이머 (5초마다)
+            useEffect(() => {
+                if (!DATA.hero.backgroundImages || DATA.hero.backgroundImages.length <= 1) return;
+                
+                const timer = setInterval(() => {
+                    setHeroIndex((prev) => (prev + 1) % DATA.hero.backgroundImages.length);
+                }, 2000); // 2000 = 2초
+
+                return () => clearInterval(timer);
+            }, []);
+
             const scrollToSection = (sectionId) => {
                 setIsMenuOpen(false);
                 const element = document.getElementById(sectionId);
@@ -273,7 +294,6 @@
                 }
             };
 
-            // 프로젝트 보이기 로직: 기본 6개, 버튼 누르면 전체
             const visibleProjects = showAllProjects ? DATA.projects : DATA.projects.slice(0, 6);
 
             return (
@@ -309,27 +329,44 @@
                         )}
                     </nav>
 
-                    {/* Hero Section (Design Update: Centered & Full) */}
+                    {/* Hero Section (배경 이미지 슬라이더 적용) */}
                     <section id="home" className="relative min-h-screen flex items-center justify-center pt-24 bg-white overflow-hidden">
-                        {/* Background Deco */}
-                        <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
-                             <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-black rounded-full blur-[120px]"></div>
-                             <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-black rounded-full blur-[120px]"></div>
-                        </div>
+                        
+                        {/* 1. 배경 이미지 슬라이더 */}
+                        {DATA.hero.backgroundImages && DATA.hero.backgroundImages.length > 0 ? (
+                            <div className="absolute inset-0 z-0">
+                                {DATA.hero.backgroundImages.map((img, index) => (
+                                    <div 
+                                        key={index}
+                                        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-[2000ms] ease-in-out ${index === heroIndex ? 'opacity-100' : 'opacity-0'}`}
+                                        style={{ backgroundImage: `url(${img})` }}
+                                    />
+                                ))}
+                                {/* 흰색 덮개 (글씨가 잘 보이게 하기 위함, 투명도 조절: bg-white/80) */}
+                                <div className="absolute inset-0 bg-white/85"></div>
+                            </div>
+                        ) : (
+                            /* 이미지가 없을 때 기본 배경 */
+                            <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+                                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-black rounded-full blur-[120px]"></div>
+                                <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-black rounded-full blur-[120px]"></div>
+                            </div>
+                        )}
 
+                        {/* 2. 텍스트 내용 */}
                         <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full text-center relative z-10">
-                            <p className="text-sm md:text-base font-bold tracking-[0.3em] mb-8 text-gray-400 uppercase animate-fade-in-up">
+                            <p className="text-sm md:text-base font-bold tracking-[0.3em] mb-8 text-gray-500 uppercase animate-fade-in-up">
                                 {DATA.hero.subtitle}
                             </p>
                             
-                            <div className="font-syncopate font-black leading-[0.85] tracking-tighter mb-10 select-none">
-                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] animate-fade-in-up delay-100">{DATA.hero.titleLine1}</div>
+                            <div className="font-syncopate font-black leading-[0.85] tracking-tighter mb-10 select-none mix-blend-multiply">
+                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] animate-fade-in-up delay-100 text-black">{DATA.hero.titleLine1}</div>
                                 <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] text-transparent bg-clip-text bg-gradient-to-b from-gray-800 to-black animate-fade-in-up delay-200">{DATA.hero.titleLine2}</div>
-                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] animate-fade-in-up delay-300">{DATA.hero.titleLine3}</div>
+                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] animate-fade-in-up delay-300 text-black">{DATA.hero.titleLine3}</div>
                             </div>
 
                             <div className="max-w-2xl mx-auto mb-12 animate-fade-in-up delay-500">
-                                <p className="text-lg md:text-xl font-medium text-gray-600 leading-relaxed whitespace-pre-line">
+                                <p className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed whitespace-pre-line">
                                     {DATA.hero.desc}
                                 </p>
                             </div>
@@ -471,5 +508,3 @@
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<Portfolio />);
     </script>
-</body>
-</html>
