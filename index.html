@@ -330,7 +330,8 @@
                     </nav>
 
                     {/* Hero Section */}
-                    <section id="home" className="relative min-h-screen flex items-center justify-center pt-24 bg-white overflow-hidden">
+                    {/* Hero Section (수정됨: 배경 잘 보이게 투명도 조절) */}
+                    <section id="home" className="relative min-h-screen flex items-center justify-center pt-24 bg-gray-900 overflow-hidden">
                         
                         {/* 1. 배경 이미지 슬라이더 */}
                         {DATA.hero.backgroundImages && DATA.hero.backgroundImages.length > 0 ? (
@@ -338,16 +339,16 @@
                                 {DATA.hero.backgroundImages.map((img, index) => (
                                     <div 
                                         key={index}
-                                        // 👇 [수정됨] 전환 속도를 1000ms(1초)로 변경하여 더 경쾌하게
-                                        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-[1000ms] ease-in-out ${index === heroIndex ? 'opacity-100' : 'opacity-0'}`}
+                                        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-[2000ms] ease-in-out ${index === heroIndex ? 'opacity-100' : 'opacity-0'}`}
                                         style={{ backgroundImage: `url(${img})` }}
                                     />
                                 ))}
-                                {/* 흰색 덮개 */}
-                                <div className="absolute inset-0 bg-white/85"></div>
+                                {/* 👇 [여기가 중요!] 너무 하얗지 않게, 위아래만 살짝 가리고 가운데는 투명하게 변경 */}
+                                <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/30 to-white/90"></div>
                             </div>
                         ) : (
-                            <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+                            /* 이미지가 없을 때 */
+                            <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none bg-white">
                                 <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-black rounded-full blur-[120px]"></div>
                                 <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-black rounded-full blur-[120px]"></div>
                             </div>
@@ -355,24 +356,25 @@
 
                         {/* 2. 텍스트 내용 */}
                         <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full text-center relative z-10">
-                            <p className="text-sm md:text-base font-bold tracking-[0.3em] mb-8 text-gray-500 uppercase animate-fade-in-up">
+                            <p className="text-sm md:text-base font-bold tracking-[0.3em] mb-8 text-gray-600 uppercase animate-fade-in-up">
                                 {DATA.hero.subtitle}
                             </p>
                             
-                            <div className="font-syncopate font-black leading-[0.85] tracking-tighter mb-10 select-none mix-blend-multiply">
-                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] animate-fade-in-up delay-100 text-black">{DATA.hero.titleLine1}</div>
-                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] text-transparent bg-clip-text bg-gradient-to-b from-gray-800 to-black animate-fade-in-up delay-200">{DATA.hero.titleLine2}</div>
-                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] animate-fade-in-up delay-300 text-black">{DATA.hero.titleLine3}</div>
+                            {/* 글씨 효과 수정: 배경이 있어도 잘 보이게 */}
+                            <div className="font-syncopate font-black leading-[0.85] tracking-tighter mb-10 select-none">
+                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] animate-fade-in-up delay-100 text-black drop-shadow-xl">{DATA.hero.titleLine1}</div>
+                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] text-transparent bg-clip-text bg-gradient-to-b from-gray-800 to-black animate-fade-in-up delay-200 drop-shadow-xl">{DATA.hero.titleLine2}</div>
+                                <div className="text-[12vw] md:text-[8rem] lg:text-[10rem] animate-fade-in-up delay-300 text-black drop-shadow-xl">{DATA.hero.titleLine3}</div>
                             </div>
 
                             <div className="max-w-2xl mx-auto mb-12 animate-fade-in-up delay-500">
-                                <p className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed whitespace-pre-line">
+                                <p className="text-lg md:text-xl font-medium text-gray-800 leading-relaxed whitespace-pre-line drop-shadow-md">
                                     {DATA.hero.desc}
                                 </p>
                             </div>
 
                             <div className="animate-fade-in-up delay-700">
-                                <button onClick={() => scrollToSection('projects')} className="inline-flex items-center space-x-3 text-sm font-bold uppercase tracking-widest border border-black px-8 py-4 hover:bg-black hover:text-white transition-all duration-300">
+                                <button onClick={() => scrollToSection('projects')} className="inline-flex items-center space-x-3 text-sm font-bold uppercase tracking-widest border border-black px-8 py-4 bg-white/50 hover:bg-black hover:text-white transition-all duration-300 backdrop-blur-sm">
                                     <span>{DATA.hero.buttonText}</span>
                                     <ArrowIcon />
                                 </button>
